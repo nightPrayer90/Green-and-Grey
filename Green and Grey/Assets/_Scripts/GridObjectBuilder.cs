@@ -67,7 +67,7 @@ public class GridObjectBuilder : MonoBehaviour
             go.transform.parent = envParent.transform;
         }
 
-        Invoke("CalculateFlowField", 0.1f);
+        Invoke("CalculateFlowField", 0.1f); // wtf TODO
     }
 
     private void CalculateFlowField()

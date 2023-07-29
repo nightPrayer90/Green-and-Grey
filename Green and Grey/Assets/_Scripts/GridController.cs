@@ -51,7 +51,7 @@ public class GridController : MonoBehaviour
         curFlowField.CreateCostFieldFromGrid();
         curFlowField.CreateIntegrationField(destinationCellpos, startPos);
         curFlowField.CreateFlowField();
-        gridDebug.DrawFlowField();
+        //gridDebug.DrawFlowField();
     }
 
     public void ReCalculateFlowField(GameObject placedTower)
