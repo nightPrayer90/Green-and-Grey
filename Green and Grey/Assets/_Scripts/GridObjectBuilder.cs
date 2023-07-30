@@ -50,7 +50,7 @@ public class GridObjectBuilder : MonoBehaviour
                     break;
 
                 case 1:
-                    layer1mesh.transform.position = new Vector3(curCell.worldPos.x, 1f, curCell.worldPos.z);
+                    layer1mesh.transform.position = new Vector3(curCell.worldPos.x, 0, curCell.worldPos.z);
                     combine[i].mesh = layer1mesh.sharedMesh;
                     combine[i].transform = layer1mesh.transform.localToWorldMatrix;
                     break;
@@ -72,7 +72,7 @@ public class GridObjectBuilder : MonoBehaviour
                     break;
 
                 case 12:
-                    layer12mesh.transform.position = new Vector3(curCell.worldPos.x, 1f, curCell.worldPos.z);
+                    layer12mesh.transform.position = new Vector3(curCell.worldPos.x, .5f, curCell.worldPos.z);
                     combine[i].mesh = layer12mesh.sharedMesh;
                     combine[i].transform = layer12mesh.transform.localToWorldMatrix;
                     break;
