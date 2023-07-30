@@ -26,7 +26,7 @@ public class Cell
     public void IncreaseCost(int amnt)
     {
         if (cost == byte.MaxValue) { return; }
-        if (amnt + cost >= 255) { cost = byte.MaxValue; }
+        if (amnt + cost >= byte.MaxValue) { cost = byte.MaxValue; }
         else { cost += (byte)amnt; }
     }
 }
