@@ -11,7 +11,7 @@ public class GridController : MonoBehaviour
     public FlowField curFlowField;
     public TerrainGrid curTerrainGrid;
     public GridDebug gridDebug;
-    public GridObjectBuilder gridObjectBulder;
+    public GridObjectBuilder gridObjectBuilder;
 
     private void Start()
     {
@@ -27,8 +27,8 @@ public class GridController : MonoBehaviour
 
         gridDebug.SetTerrainGrid(curTerrainGrid);
 
-        gridObjectBulder.SetTerrainGrid(curTerrainGrid);
-        gridObjectBulder.BuildBaseTerrain();
+        gridObjectBuilder.SetTerrainGrid(curTerrainGrid);
+        gridObjectBuilder.BuildBaseTerrain();
     }
 
 
@@ -57,7 +57,7 @@ public class GridController : MonoBehaviour
     public void ReCalculateFlowField(GameObject placedTower)
     {
         InitializeFlowField();
-        curFlowField.CreateCostField();
+        //curFlowField.CreateCostField();
 
         bool canBuild = curFlowField.CreateIntegrationField(destinationCellpos, startPos);
 
