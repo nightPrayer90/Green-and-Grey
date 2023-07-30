@@ -88,12 +88,12 @@ public class FlowField
                 int xx = Mathf.FloorToInt(x / 2);
                 int yy = Mathf.FloorToInt(y / 2);
 
-                if (curTerrainGrid.terrainGrid[xx,yy].terrainValue == 1)
+                if (curTerrainGrid.terrainGrid[xx,yy].terrainValue == TerrainLayers.economy)
                 {
                     grid[x, y].IncreaseCost(255); 
                 }
 
-                if (curTerrainGrid.terrainGrid[xx, yy].terrainValue == 12)
+                if (curTerrainGrid.terrainGrid[xx, yy].terrainValue == TerrainLayers.border)
                 {
                     grid[x, y].IncreaseCost(255); 
                 }

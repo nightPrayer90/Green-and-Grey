@@ -4,6 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+public enum TerrainLayers : int
+{
+    battlefield = 0,
+    economy = 1,
+    start = 2,
+    stop = 3,
+    border = 12
+}
+
 public class TerrainGrid
 {
     public TerrainCell[,] terrainGrid { get; private set; }
@@ -64,7 +73,7 @@ public class TerrainGrid
                 // Set 12 
                 if ((x == 0 || x == gridSize.x - 1) || (y == 0 || y == gridSize.y - 1))
                 {
-                    terrainGrid[x, y].terrainValue = 12;
+                    terrainGrid[x, y].terrainValue = TerrainLayers.border;
                 }
             }
         }
@@ -87,14 +96,14 @@ public class TerrainGrid
             stopPos = new Vector2Int(xStopPos, yStopPos);
         }
 
-        terrainGrid[startPos.x, startPos.y].terrainValue = 2;
-        terrainGrid[stopPos.x, stopPos.y].terrainValue = 3;
+        terrainGrid[startPos.x, startPos.y].terrainValue = TerrainLayers.start;
+        terrainGrid[stopPos.x, stopPos.y].terrainValue = TerrainLayers.stop;
     }
 
     public void RandomGrid()
     {
         //E1
-        SetRecValue(1, 1, gridSize.x - 2, gridSize.y - 2, 1);
+        SetRecValue(1, 1, gridSize.x - 2, gridSize.y - 2, TerrainLayers.economy);
         //Start - StopPosition
         CreateStartAndExit();
 
@@ -147,7 +156,7 @@ public class TerrainGrid
         CreateStartAndExit(false);
     }
 
-    public void SetRecValue(int x1, int y1, int x2, int y2, int value)
+    public void SetRecValue(int x1, int y1, int x2, int y2, TerrainLayers value)
     {
         //sortieren der Werte
         if (x1 > x2)

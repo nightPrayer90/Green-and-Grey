@@ -42,20 +42,20 @@ public class GridObjectBuilder : MonoBehaviour
 
             switch (curCell.terrainValue)
             {
-                case 0:
+                case TerrainLayers.battlefield:
                     int random01 = Random.Range(0, layer0meshes.Length);
                     layer0meshes[random01].transform.position = new Vector3(curCell.worldPos.x, curCell.worldPos.y, curCell.worldPos.z);
                     combine[i].mesh = layer0meshes[random01].sharedMesh;
                     combine[i].transform = layer0meshes[random01].transform.localToWorldMatrix;
                     break;
 
-                case 1:
+                case TerrainLayers.economy:
                     layer1mesh.transform.position = new Vector3(curCell.worldPos.x, 0, curCell.worldPos.z);
                     combine[i].mesh = layer1mesh.sharedMesh;
                     combine[i].transform = layer1mesh.transform.localToWorldMatrix;
                     break;
 
-                case 2:
+                case TerrainLayers.start:
                     layer0meshes[0].transform.position = new Vector3(curCell.worldPos.x, curCell.worldPos.y, curCell.worldPos.z);
                     combine[i].mesh = layer0meshes[0].sharedMesh;
                     combine[i].transform = layer0meshes[0].transform.localToWorldMatrix;
@@ -63,7 +63,7 @@ public class GridObjectBuilder : MonoBehaviour
                     gridStartPosition = curCell.gridIndex;
                     break;
 
-                case 3:
+                case TerrainLayers.stop:
                     layer0meshes[0].transform.position = new Vector3(curCell.worldPos.x, curCell.worldPos.y, curCell.worldPos.z);
                     combine[i].mesh = layer0meshes[0].sharedMesh;
                     combine[i].transform = layer0meshes[0].transform.localToWorldMatrix;
@@ -71,7 +71,7 @@ public class GridObjectBuilder : MonoBehaviour
                     gridStopPosition = curCell.gridIndex;
                     break;
 
-                case 12:
+                case TerrainLayers.border:
                     layer12mesh.transform.position = new Vector3(curCell.worldPos.x, .5f, curCell.worldPos.z);
                     combine[i].mesh = layer12mesh.sharedMesh;
                     combine[i].transform = layer12mesh.transform.localToWorldMatrix;
