@@ -15,6 +15,12 @@ public class GridObjectBuilder : MonoBehaviour
     public GameObject start;
     public GameObject stop;
 
+    [Header("Grid Prefab meshes")]
+    public MeshFilter layer0mesh;
+    public MeshFilter layer1mesh;
+    public MeshFilter layer12mesh;
+    
+
 
     private TerrainGrid curTerrainGrid;
     //private float terrainCellRadius;
@@ -31,41 +37,60 @@ public class GridObjectBuilder : MonoBehaviour
 
     public void BuildBaseTerrain()
     {
+        CombineInstance[] combine = new CombineInstance[curTerrainGrid.terrainGrid.Length];
+        int i = 0;
         foreach (TerrainCell curCell in curTerrainGrid.terrainGrid)
         {
-            GameObject go = null;
-           
+            GameObject cellGameObject = null;
 
-           switch (curCell.terrainValue)
+            switch (curCell.terrainValue)
             {
                 case 0:
-                    go = Instantiate(e0,curCell.worldPos, e0.transform.rotation);
+                    layer0mesh.transform.position = new Vector3(curCell.worldPos.x, curCell.worldPos.y, curCell.worldPos.z);
+                    combine[i].mesh = layer0mesh.sharedMesh;
+                    combine[i].transform = layer0mesh.transform.localToWorldMatrix;
                     break;
 
                 case 1:
-                    go = Instantiate(e1, new Vector3 (curCell.worldPos.x , 1f, curCell.worldPos.z), transform.rotation);
+                    layer1mesh.transform.position = new Vector3(curCell.worldPos.x, 1f, curCell.worldPos.z);
+                    combine[i].mesh = layer1mesh.sharedMesh;
+                    combine[i].transform = layer1mesh.transform.localToWorldMatrix;
                     break;
 
                 case 2:
-                    Instantiate(e0, curCell.worldPos, e0.transform.rotation);
-                    go = Instantiate(start, new Vector3 (curCell.worldPos.x, 0.5f, curCell.worldPos.z), transform.rotation);
+                    layer0mesh.transform.position = new Vector3(curCell.worldPos.x, 0.5f, curCell.worldPos.z);
+                    combine[i].mesh = layer0mesh.sharedMesh;
+                    combine[i].transform = layer0mesh.transform.localToWorldMatrix;
+                    cellGameObject = Instantiate(start, new Vector3(curCell.worldPos.x, 0.5f, curCell.worldPos.z), transform.rotation);
                     gridStartPosition = curCell.gridIndex;
                     break;
 
                 case 3:
-                    Instantiate(e0, curCell.worldPos, e0.transform.rotation);
-                    go = Instantiate(stop, new Vector3 (curCell.worldPos.x, 0.5f, curCell.worldPos.z), transform.rotation);
+                    layer0mesh.transform.position = new Vector3(curCell.worldPos.x, 0.5f, curCell.worldPos.z);
+                    combine[i].mesh = layer0mesh.sharedMesh;
+                    combine[i].transform = layer0mesh.transform.localToWorldMatrix;
+                    cellGameObject = Instantiate(stop, new Vector3(curCell.worldPos.x, 0.5f, curCell.worldPos.z), transform.rotation);
                     gridStopPosition = curCell.gridIndex;
                     break;
 
                 case 12:
-                    go = Instantiate(e12, new Vector3 (curCell.worldPos.x, 1f, curCell.worldPos.z), transform.rotation);
+                    layer12mesh.transform.position = new Vector3(curCell.worldPos.x, 1f, curCell.worldPos.z);
+                    combine[i].mesh = layer12mesh.sharedMesh;
+                    combine[i].transform = layer12mesh.transform.localToWorldMatrix;
                     break;
             }
 
-            if (go != null)
-            go.transform.parent = envParent.transform;
+            if (cellGameObject != null) // TOOD ist das problematisch?
+                cellGameObject.transform.parent = envParent.transform;
+            i++;
         }
+
+        Mesh mesh = new Mesh();
+        mesh.name = "allMeshesUnite#FaustEmoji";
+        mesh.CombineMeshes(combine);
+        envParent.GetComponent<MeshFilter>().sharedMesh = mesh;
+        envParent.GetComponent<MeshCollider>().sharedMesh = mesh;
+        envParent.SetActive(true); // because it gets auto-deactivated during mesh change
 
         Invoke("CalculateFlowField", 0.1f); // wtf TODO
     }
