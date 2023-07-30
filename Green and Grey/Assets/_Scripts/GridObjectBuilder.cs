@@ -9,14 +9,11 @@ public class GridObjectBuilder : MonoBehaviour
     public GridController gridController;
 
     [Header("Grid Prefabs")]
-    public GameObject e0;
-    public GameObject e1;
-    public GameObject e12;
     public GameObject start;
     public GameObject stop;
 
     [Header("Grid Prefab meshes")]
-    public MeshFilter layer0mesh;
+    public MeshFilter[] layer0meshes;
     public MeshFilter layer1mesh;
     public MeshFilter layer12mesh;
     
@@ -46,9 +43,10 @@ public class GridObjectBuilder : MonoBehaviour
             switch (curCell.terrainValue)
             {
                 case 0:
-                    layer0mesh.transform.position = new Vector3(curCell.worldPos.x, curCell.worldPos.y, curCell.worldPos.z);
-                    combine[i].mesh = layer0mesh.sharedMesh;
-                    combine[i].transform = layer0mesh.transform.localToWorldMatrix;
+                    int random01 = Random.Range(0, layer0meshes.Length);
+                    layer0meshes[random01].transform.position = new Vector3(curCell.worldPos.x, curCell.worldPos.y, curCell.worldPos.z);
+                    combine[i].mesh = layer0meshes[random01].sharedMesh;
+                    combine[i].transform = layer0meshes[random01].transform.localToWorldMatrix;
                     break;
 
                 case 1:
@@ -58,17 +56,17 @@ public class GridObjectBuilder : MonoBehaviour
                     break;
 
                 case 2:
-                    layer0mesh.transform.position = new Vector3(curCell.worldPos.x, 0.5f, curCell.worldPos.z);
-                    combine[i].mesh = layer0mesh.sharedMesh;
-                    combine[i].transform = layer0mesh.transform.localToWorldMatrix;
+                    layer0meshes[0].transform.position = new Vector3(curCell.worldPos.x, curCell.worldPos.y, curCell.worldPos.z);
+                    combine[i].mesh = layer0meshes[0].sharedMesh;
+                    combine[i].transform = layer0meshes[0].transform.localToWorldMatrix;
                     cellGameObject = Instantiate(start, new Vector3(curCell.worldPos.x, 0.5f, curCell.worldPos.z), transform.rotation);
                     gridStartPosition = curCell.gridIndex;
                     break;
 
                 case 3:
-                    layer0mesh.transform.position = new Vector3(curCell.worldPos.x, 0.5f, curCell.worldPos.z);
-                    combine[i].mesh = layer0mesh.sharedMesh;
-                    combine[i].transform = layer0mesh.transform.localToWorldMatrix;
+                    layer0meshes[0].transform.position = new Vector3(curCell.worldPos.x, curCell.worldPos.y, curCell.worldPos.z);
+                    combine[i].mesh = layer0meshes[0].sharedMesh;
+                    combine[i].transform = layer0meshes[0].transform.localToWorldMatrix;
                     cellGameObject = Instantiate(stop, new Vector3(curCell.worldPos.x, 0.5f, curCell.worldPos.z), transform.rotation);
                     gridStopPosition = curCell.gridIndex;
                     break;
