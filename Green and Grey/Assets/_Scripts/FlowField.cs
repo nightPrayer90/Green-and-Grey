@@ -51,7 +51,7 @@ public class FlowField
 
 
     //---------------------------------------------------------------------------------------------- //
-    // LOW FIELD CONTROLL -------------------------------------------------------------------------- //
+    // FLOW FIELD CONTROL -------------------------------------------------------------------------- //
     //---------------------------------------------------------------------------------------------- // 
     // Initializes the costField
     public void CreateCostField()
@@ -117,15 +117,9 @@ public class FlowField
 
         grid[xx, yy].cost = 0;
         grid[xx, yy].bestCost = 0;
-
         grid[xx+1, yy].cost = 0;
-        grid[xx+1, yy].bestCost = 0;
-
         grid[xx, yy+1].cost = 0;
-        grid[xx, yy+1].bestCost = 0;
-
         grid[xx+1, yy+1].cost = 0;
-        grid[xx+1, yy+1].bestCost = 0;
 
         Queue<Cell> cellsToCheck = new Queue<Cell>();
 
@@ -137,16 +131,16 @@ public class FlowField
             List<Cell> curNeighbors = GetNeighborCells(curCell.gridIndex, GridDirection.CardinalDirections);
             foreach (Cell curNeighbor in curNeighbors)
             {
-                if (curNeighbor.cost == byte.MaxValue) { continue; }
-                if (curNeighbor.cost + curCell.bestCost < curNeighbor.bestCost)
+                if (curNeighbor.cost == byte.MaxValue) { continue; } // we do not need to calculate where I could go from there because I can never be there
+                if (curNeighbor.cost + curCell.bestCost < curNeighbor.bestCost) // calculate where to go from that neighbor cell
                 {
-                    curNeighbor.bestCost = (ushort)(curNeighbor.cost + curCell.bestCost);
+                    curNeighbor.bestCost = (ushort)(curNeighbor.cost + curCell.bestCost); // this works because initially all bestCost are ushort.max
                     cellsToCheck.Enqueue(curNeighbor);
                 }
             }
         }
 
-        if (startCell.bestCost > 65000)
+        if (startCell.bestCost == ushort.MaxValue) // still initial value because we never reached it
         {
             canPath = false;
         }
@@ -155,7 +149,18 @@ public class FlowField
         return canPath;
     }
 
-    // Initializes the FlowField
+    public void ResetIntegrationField()
+    {
+        for(int i = 0; i<gridSize.x; i++)
+        {
+            for (int k=0; k<gridSize.y; k++)
+            {
+                grid[i, k].bestCost = ushort.MaxValue;
+            }
+        }
+    }
+
+    // Calculates the FlowField from the integration field (max costs)
     public void CreateFlowField()
     {
         foreach (Cell curCell in grid)

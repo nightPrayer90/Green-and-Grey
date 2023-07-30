@@ -837,7 +837,7 @@ MonoBehaviour:
   startPos: {x: 0, y: 0}
   cellRadius: 0.5
   gridDebug: {fileID: 1977803239}
-  gridObjectBulder: {fileID: 1264779314}
+  gridObjectBuilder: {fileID: 1264779314}
 --- !u!114 &1264779314
 MonoBehaviour:
   m_ObjectHideFlags: 0

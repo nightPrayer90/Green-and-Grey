@@ -18,6 +18,9 @@ public class PlacementSystem : MonoBehaviour
 
     private void Update()
     {
+        if (gridController.curFlowField == null) // TODO this should not be necessary
+            return;
+
         // find buildPosition
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         Cell cellBelow = gridController.curFlowField.GetCellFromWorldPos(mousePosition);
@@ -26,7 +29,7 @@ public class PlacementSystem : MonoBehaviour
         // build
         if (Input.GetMouseButtonDown(0))
         {
-            GameObject go = Instantiate(tower, mouseIndicator.transform.position, transform.rotation);
+            GameObject towerInstance = Instantiate(tower, mouseIndicator.transform.position, transform.rotation);
             Vector2Int cellPosition = cellBelow.gridIndex;
 
             gridController.curFlowField.grid[cellPosition.x, cellPosition.y].IncreaseCost(255);
@@ -35,7 +38,7 @@ public class PlacementSystem : MonoBehaviour
             gridController.curFlowField.grid[cellPosition.x-1, cellPosition.y-1].IncreaseCost(255);
 
             var watch = System.Diagnostics.Stopwatch.StartNew();
-            gridController.ReCalculateFlowField(go);
+            gridController.ReCalculateFlowField(towerInstance, cellPosition);
             watch.Stop();
             Debug.Log(watch.ElapsedMilliseconds);
         }

@@ -54,10 +54,10 @@ public class GridController : MonoBehaviour
         //gridDebug.DrawFlowField();
     }
 
-    public void ReCalculateFlowField(GameObject placedTower)
+    public void ReCalculateFlowField(GameObject placedTower, Vector2Int towerCellPos)
     {
-        InitializeFlowField();
-        //curFlowField.CreateCostField();
+        // calculate everything and as a byproduct, check if everything is legal with the new tower
+        curFlowField.ResetIntegrationField();
 
         bool canBuild = curFlowField.CreateIntegrationField(destinationCellpos, startPos);
 
@@ -67,14 +67,15 @@ public class GridController : MonoBehaviour
         }
         else
         {
+            // reverse everything because the field is blocked
             Destroy(placedTower);
-
-            InitializeFlowField();
-            //Debug.Log("dd");
-            curFlowField.CreateCostField(); // 
+            curFlowField.grid[towerCellPos.x, towerCellPos.y].cost = 1;
+            curFlowField.grid[towerCellPos.x-1, towerCellPos.y].cost = 1;
+            curFlowField.grid[towerCellPos.x, towerCellPos.y-1].cost = 1;
+            curFlowField.grid[towerCellPos.x-1, towerCellPos.y-1].cost = 1;
+            curFlowField.ResetIntegrationField();
             curFlowField.CreateIntegrationField(destinationCellpos, startPos);
             curFlowField.CreateFlowField();
-
         }
         
         gridDebug.DrawFlowField();
