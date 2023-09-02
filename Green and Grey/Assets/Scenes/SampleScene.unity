@@ -832,7 +832,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 561f68e2f2be73549a67130862392ca7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: {x: 60, y: 60}
+  gridSize: {x: 100, y: 100}
   destinationCellpos: {x: 0, y: 0}
   startPos: {x: 0, y: 0}
   cellRadius: 0.5
