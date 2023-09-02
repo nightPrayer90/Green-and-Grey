@@ -84,6 +84,7 @@ public class GridObjectBuilder : MonoBehaviour
         }
 
         Mesh mesh = new Mesh();
+        mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
         mesh.name = "allMeshesUnite#FaustEmoji";
         mesh.CombineMeshes(combine);
         envParent.GetComponent<MeshFilter>().sharedMesh = mesh;
