@@ -100,10 +100,10 @@ public class TerrainGrid
         terrainGrid[stopPos.x, stopPos.y].terrainValue = TerrainLayers.stop;
     }
 
-    public void RandomGrid()
+    public void FillGridRandom()
     {
         //E1
-        SetRecValue(1, 1, gridSize.x - 2, gridSize.y - 2, TerrainLayers.economy);
+        SetRectValue(1, 1, gridSize.x - 2, gridSize.y - 2, TerrainLayers.economy);
         //Start - StopPosition
         CreateStartAndExit();
 
@@ -124,39 +124,42 @@ public class TerrainGrid
 
             if (direction == 0 && (curX + length) <= (gridSize.x - 6))   //Bedingung legt abstand zum rand fest - rechts
             {
-                SetRecValue(curX, Mathf.Max(curY - distance, 6), curX + length, Mathf.Min(curY + distance, gridSize.y - 6), 0);
+                SetRectValue(curX, Mathf.Max(curY - distance, 6), curX + length, Mathf.Min(curY + distance, gridSize.y - 6), 0);
                 curX += length;
                 count += 1;
             }
             else if (direction == 1 && (curX - length) >= 6)     //Bedingung legt abstand zum rand fest - links
             {
-                SetRecValue(curX, Mathf.Max(curY - distance, 6), curX - length, Mathf.Min(curY + distance, gridSize.y - 6), 0);
+                SetRectValue(curX, Mathf.Max(curY - distance, 6), curX - length, Mathf.Min(curY + distance, gridSize.y - 6), 0);
                 curX -= length;
                 count += 1;
             }
             else if (direction == 2 && (curY - length) >= 6)      //Bedingung legt abstand zum rand fest - runter
             {
-                SetRecValue(Mathf.Max(curX - distance, 6), curY - length, Mathf.Min(curX + distance, gridSize.x - 6), curY, 0);
+                SetRectValue(Mathf.Max(curX - distance, 6), curY - length, Mathf.Min(curX + distance, gridSize.x - 6), curY, 0);
                 curY -= length;
                 count += 1;
             }
             if (direction == 3 && (curY + length) <= (gridSize.y - 6))   //Bedingung legt abstand zum rand fest - hoch
             {
-                SetRecValue(Mathf.Max(curX - distance, 6), curY + length, Mathf.Min(curX + distance, gridSize.x - 6), curY, 0);
+                SetRectValue(Mathf.Max(curX - distance, 6), curY + length, Mathf.Min(curX + distance, gridSize.x - 6), curY, 0);
                 curY += length;
                 count += 1;
             }
         }
 
         // Verbindung letztes Stück des Weges
-        SetRecValue(curX - (distance + 1), (curY - distance + 1), stopPos.x, stopPos.y, 0);
+        SetRectValue(curX - (distance + 1), (curY - distance + 1), stopPos.x, stopPos.y, 0);
 
         // Setzen der Start und Zielposition nochmal, weil wir sie vorher überschrieben haben
         // ist effizienter, als beim Berechnen aufzupassen, dass wir sie nicht überschreiben
         CreateStartAndExit(false);
     }
 
-    public void SetRecValue(int x1, int y1, int x2, int y2, TerrainLayers value)
+    /**
+     * set values for rectangles instead of single cells
+     * */
+    public void SetRectValue(int x1, int y1, int x2, int y2, TerrainLayers value)
     {
         //sortieren der Werte
         if (x1 > x2)
