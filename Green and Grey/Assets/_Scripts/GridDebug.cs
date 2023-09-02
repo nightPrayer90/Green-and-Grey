@@ -156,6 +156,7 @@ public class GridDebug : MonoBehaviour
     
     private void OnDrawGizmos()
     {
+#if UNITY_EDITOR
         if (displayGrid)
         {
             if (curFlowField == null)
@@ -212,7 +213,7 @@ public class GridDebug : MonoBehaviour
             default:
                 break;
         }
-        
+#endif
     }
 
     
