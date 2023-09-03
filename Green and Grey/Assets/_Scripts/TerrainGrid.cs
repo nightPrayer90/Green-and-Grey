@@ -205,7 +205,7 @@ public class TerrainGrid
                     terrainGrid[x, y].surroundingTerrain =
                         Math.Min(1, (uint)terrainGrid[x, y - 1].terrainValue) + // top
                         Math.Min(1, (uint)terrainGrid[x + 1, y].terrainValue) * 2 + // right
-                        Math.Min(1, (uint)terrainGrid[x, y - 1].terrainValue) * 4 + // bottom
+                        Math.Min(1, (uint)terrainGrid[x, y + 1].terrainValue) * 4 + // bottom
                         Math.Min(1, (uint)terrainGrid[x - 1, y].terrainValue) * 8; // left
                 }
             }
