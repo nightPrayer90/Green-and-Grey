@@ -22,7 +22,7 @@ public class GridObjectBuilder : MonoBehaviour
     public MeshFilter economySingleBlock; // surrounded by battlefield = 0000
     public MeshFilter economyBridge; // within one-block wide economy section = two 0s separated by 1s
     public MeshFilter economyBridgeEndCap; // end of one-block wide economy section = three 0s
-    public MeshFilter economyEndCap; // end of economy section = one 0
+    public MeshFilter economyEdge; // end of economy section = one 0
     public MeshFilter economyCorner; // two 0s in a row
 
     private TerrainGrid curTerrainGrid;
@@ -96,19 +96,19 @@ public class GridObjectBuilder : MonoBehaviour
                             economyMesh = economyBridgeEndCap;
                             break;
                         case 11: // end of economy section = one 0
-                            economyMesh = economyEndCap;
+                            economyMesh = economyEdge;
                             rotation = new Vector3(0, 0, 0);
                             break;
                         case 14:
-                            economyMesh = economyEndCap;
+                            economyMesh = economyEdge;
                             rotation = new Vector3(0, 180, 0);
                             break;
                         case 13:
-                            economyMesh = economyEndCap;
+                            economyMesh = economyEdge;
                             rotation = new Vector3(0, 90, 0);
                             break;
                         case 7:
-                            economyMesh = economyEndCap;
+                            economyMesh = economyEdge;
                             rotation = new Vector3(0, 270, 0);
                             break;
                         case 3: // corner - two 0s in a row
