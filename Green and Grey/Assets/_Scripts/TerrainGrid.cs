@@ -190,4 +190,25 @@ public class TerrainGrid
         }
     }
 
+    public void CalculateCellSurroundings()
+    {
+        // TODO: border nutzen statt 1
+        for(int x = 1; x < gridSize.x - 1; x++)
+        {
+            for(int y = 1; y < gridSize.y - 1; y++)
+            {
+                if(terrainGrid[x,y].terrainValue == TerrainLayers.economy)
+                {
+                    // we only need the borders from economy to battlefield (or whatever) and not the other way round
+                    // the multiplications are bit shifts
+                    terrainGrid[x, y].surroundingTerrain =
+                        (uint)terrainGrid[x, y - 1].terrainValue + // top
+                        (uint)terrainGrid[x + 1, y].terrainValue * 2 + // right
+                        (uint)terrainGrid[x, y - 1].terrainValue * 4 + // bottom
+                        (uint)terrainGrid[x - 1, y].terrainValue * 8; // left
+                }
+            }
+        }
+    }
+
 }

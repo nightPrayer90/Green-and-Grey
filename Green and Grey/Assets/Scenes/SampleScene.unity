@@ -857,10 +857,14 @@ MonoBehaviour:
   layer0meshes:
   - {fileID: 1018400249201359201, guid: 2a78d046e030e784a88a39d8b36798f8, type: 3}
   - {fileID: 4751790939742018182, guid: c65b983c4db24fc4b8e0bbf40c588c0e, type: 3}
-  layer1mesh: {fileID: 8049285194176928527, guid: 7a66a6eed207a884c93607a48f0c9747,
-    type: 3}
   layer12mesh: {fileID: 6505987482285772954, guid: 2f88c8f06633bea47a591f0d0e18abad,
     type: 3}
+  economyMidBlock: {fileID: 0}
+  economySingleBlock: {fileID: 0}
+  economyBridge: {fileID: 0}
+  economyBridgeEndCap: {fileID: 0}
+  economyEndCap: {fileID: 0}
+  economyCorner: {fileID: 0}
 --- !u!4 &1264779315
 Transform:
   m_ObjectHideFlags: 0

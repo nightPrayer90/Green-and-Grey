@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class GridObjectBuilder : MonoBehaviour
 {
@@ -14,10 +15,15 @@ public class GridObjectBuilder : MonoBehaviour
 
     [Header("Grid Prefab meshes")]
     public MeshFilter[] layer0meshes;
-    public MeshFilter layer1mesh;
     public MeshFilter layer12mesh;
-    
 
+    [Header("Economy Prefab meshes")]
+    public MeshFilter economyMidBlock; // surrounded by economy = 1111
+    public MeshFilter economySingleBlock; // surrounded by battlefield = 0000
+    public MeshFilter economyBridge; // within one-block wide economy section = two 0s separated by 1s
+    public MeshFilter economyBridgeEndCap; // end of one-block wide economy section = three 0s
+    public MeshFilter economyEndCap; // end of economy section = one 0
+    public MeshFilter economyCorner; // two 0s in a row
 
     private TerrainGrid curTerrainGrid;
     //private float terrainCellRadius;
@@ -50,9 +56,35 @@ public class GridObjectBuilder : MonoBehaviour
                     break;
 
                 case TerrainLayers.economy:
-                    layer1mesh.transform.position = new Vector3(curCell.worldPos.x, 0, curCell.worldPos.z);
-                    combine[i].mesh = layer1mesh.sharedMesh;
-                    combine[i].transform = layer1mesh.transform.localToWorldMatrix;
+                    MeshFilter economyMesh = null;
+                    // these integer values come from bitwise additions
+                    switch (curCell.surroundingTerrain)
+                    {
+                        case 15: // surrounded by economy = 1111
+                            economyMesh = economyMidBlock;
+                            break;
+                        case 0: // surrounded by battlefield = 0000
+                            economyMesh = economySingleBlock;
+                            break;
+                        case 5 or 10: // within one-block wide economy section = two 0s separated by 1s
+                            economyMesh = economyBridge;
+                            break;
+                        case 1 or 2 or 4 or 8: // end of one-block wide economy section = three 0s
+                            economyMesh = economyBridgeEndCap;
+                            break;
+                        case 14 or 13 or 11 or 7: // end of economy section = one 0
+                            economyMesh = economyEndCap;
+                            break;
+                        case 3 or 6 or 9 or 12: // corner - two 0s in a row
+                            economyMesh = economyCorner;
+                            break;
+                        default:
+                            throw new System.Exception("the surrounding terrain value is illegal");
+                    }
+
+                    economyMesh.transform.position = new Vector3(curCell.worldPos.x, 0, curCell.worldPos.z);
+                    combine[i].mesh = economyMesh.sharedMesh;
+                    combine[i].transform = economyMesh.transform.localToWorldMatrix;
                     break;
 
                 case TerrainLayers.start:
