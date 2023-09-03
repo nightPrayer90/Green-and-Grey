@@ -40,19 +40,21 @@ public class GridObjectBuilder : MonoBehaviour
 
     public void BuildBaseTerrain()
     {
-        CombineInstance[] combine = new CombineInstance[curTerrainGrid.terrainGrid.Length];
+        List<CombineInstance> meshes = new();
+        
         int i = 0;
         foreach (TerrainCell curCell in curTerrainGrid.terrainGrid)
         {
             GameObject cellGameObject = null;
+            CombineInstance ci = new();
 
             switch (curCell.terrainValue)
             {
                 case TerrainLayers.battlefield:
                     int random01 = Random.Range(0, layer0meshes.Length);
                     layer0meshes[random01].transform.position = new Vector3(curCell.worldPos.x, curCell.worldPos.y, curCell.worldPos.z);
-                    combine[i].mesh = layer0meshes[random01].sharedMesh;
-                    combine[i].transform = layer0meshes[random01].transform.localToWorldMatrix;
+                    ci.mesh = layer0meshes[random01].sharedMesh;
+                    ci.transform = layer0meshes[random01].transform.localToWorldMatrix;
                     break;
 
                 case TerrainLayers.economy:
@@ -129,36 +131,50 @@ public class GridObjectBuilder : MonoBehaviour
                             throw new System.Exception("the surrounding terrain value is illegal");
                     }
 
+                    // check once again to add floor tiles more efficiently
+                    switch (curCell.surroundingTerrain)
+                    {
+                        case 1 or 2 or 4 or 8 or 3 or 6 or 9 or 12:
+                            CombineInstance additionalFloor = new();
+                            // TODO this code is copied from above and it does make sense in either place because it should not be random
+                            int addTileRandom = Random.Range(0, layer0meshes.Length);
+                            layer0meshes[addTileRandom].transform.position = new Vector3(curCell.worldPos.x, curCell.worldPos.y, curCell.worldPos.z);
+                            additionalFloor.mesh = layer0meshes[addTileRandom].sharedMesh;
+                            additionalFloor.transform = layer0meshes[addTileRandom].transform.localToWorldMatrix;
+                            meshes.Add(additionalFloor);
+                            break;
+                    }
+
                     economyMesh.transform.position = new Vector3(curCell.worldPos.x, 0, curCell.worldPos.z);
                     economyMesh.transform.rotation = Quaternion.Euler(rotation);
-                    combine[i].mesh = economyMesh.sharedMesh;
-                    combine[i].transform = economyMesh.transform.localToWorldMatrix;
-
+                    ci.mesh = economyMesh.sharedMesh;
+                    ci.transform = economyMesh.transform.localToWorldMatrix;
                     break;
 
                 case TerrainLayers.start:
                     layer0meshes[0].transform.position = new Vector3(curCell.worldPos.x, curCell.worldPos.y, curCell.worldPos.z);
-                    combine[i].mesh = layer0meshes[0].sharedMesh;
-                    combine[i].transform = layer0meshes[0].transform.localToWorldMatrix;
+                    ci.mesh = layer0meshes[0].sharedMesh;
+                    ci.transform = layer0meshes[0].transform.localToWorldMatrix;
                     cellGameObject = Instantiate(start, new Vector3(curCell.worldPos.x, 0.5f, curCell.worldPos.z), transform.rotation);
                     gridStartPosition = curCell.gridIndex;
                     break;
 
                 case TerrainLayers.stop:
                     layer0meshes[0].transform.position = new Vector3(curCell.worldPos.x, curCell.worldPos.y, curCell.worldPos.z);
-                    combine[i].mesh = layer0meshes[0].sharedMesh;
-                    combine[i].transform = layer0meshes[0].transform.localToWorldMatrix;
+                    ci.mesh = layer0meshes[0].sharedMesh;
+                    ci.transform = layer0meshes[0].transform.localToWorldMatrix;
                     cellGameObject = Instantiate(stop, new Vector3(curCell.worldPos.x, 0.5f, curCell.worldPos.z), transform.rotation);
                     gridStopPosition = curCell.gridIndex;
                     break;
 
                 case TerrainLayers.border:
                     layer12mesh.transform.position = new Vector3(curCell.worldPos.x, .5f, curCell.worldPos.z);
-                    combine[i].mesh = layer12mesh.sharedMesh;
-                    combine[i].transform = layer12mesh.transform.localToWorldMatrix;
+                    ci.mesh = layer12mesh.sharedMesh;
+                    ci.transform = layer12mesh.transform.localToWorldMatrix;
                     break;
             }
 
+            meshes.Add(ci);
             if (cellGameObject != null) // TOOD ist das problematisch?
                 cellGameObject.transform.parent = envParent.transform;
             i++;
@@ -167,7 +183,7 @@ public class GridObjectBuilder : MonoBehaviour
         Mesh mesh = new Mesh();
         mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
         mesh.name = "allMeshesUnite#FaustEmoji";
-        mesh.CombineMeshes(combine);
+        mesh.CombineMeshes(meshes.ToArray());
         envParent.GetComponent<MeshFilter>().sharedMesh = mesh;
         envParent.GetComponent<MeshCollider>().sharedMesh = mesh;
         envParent.SetActive(true); // because it gets auto-deactivated during mesh change
