@@ -25,7 +25,7 @@ public class GridController : MonoBehaviour
         curTerrainGrid.CreateGrid();
         curTerrainGrid.FillGridRandom();
 
-        
+        curTerrainGrid.CalculateCellSurroundings();
 
         gridDebug.SetTerrainGrid(curTerrainGrid);
 

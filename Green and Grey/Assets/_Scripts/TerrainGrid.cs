@@ -201,11 +201,12 @@ public class TerrainGrid
                 {
                     // we only need the borders from economy to battlefield (or whatever) and not the other way round
                     // the multiplications are bit shifts
+                    // TODO: The Min is an ugly hack for the problem that we do not account for borders. It is the easiest way to say "if you are higher than 1, you are economy"
                     terrainGrid[x, y].surroundingTerrain =
-                        (uint)terrainGrid[x, y - 1].terrainValue + // top
-                        (uint)terrainGrid[x + 1, y].terrainValue * 2 + // right
-                        (uint)terrainGrid[x, y - 1].terrainValue * 4 + // bottom
-                        (uint)terrainGrid[x - 1, y].terrainValue * 8; // left
+                        Math.Min(1, (uint)terrainGrid[x, y - 1].terrainValue) + // top
+                        Math.Min(1, (uint)terrainGrid[x + 1, y].terrainValue) * 2 + // right
+                        Math.Min(1, (uint)terrainGrid[x, y - 1].terrainValue) * 4 + // bottom
+                        Math.Min(1, (uint)terrainGrid[x - 1, y].terrainValue) * 8; // left
                 }
             }
         }
