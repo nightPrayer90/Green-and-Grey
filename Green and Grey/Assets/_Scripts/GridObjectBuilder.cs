@@ -57,34 +57,83 @@ public class GridObjectBuilder : MonoBehaviour
 
                 case TerrainLayers.economy:
                     MeshFilter economyMesh = null;
+                    Vector3 rotation = new();
                     // these integer values come from bitwise additions
                     switch (curCell.surroundingTerrain)
                     {
                         case 15: // surrounded by economy = 1111
                             economyMesh = economyMidBlock;
+                            rotation = new Vector3(0, 90, 0);
                             break;
                         case 0: // surrounded by battlefield = 0000
                             economyMesh = economySingleBlock;
+                            rotation = new Vector3(0, 90, 0);
                             break;
-                        case 5 or 10: // within one-block wide economy section = two 0s separated by 1s
+                        case 10: // within one-block wide economy section = two 0s separated by 1s
                             economyMesh = economyBridge;
+                            rotation = new Vector3(0, 0, 0);
                             break;
-                        case 1 or 2 or 4 or 8: // end of one-block wide economy section = three 0s
+                        case 5:
+                            economyMesh = economyBridge;
+                            rotation = new Vector3(0, 90, 0);
+                            break;
+                        case 2: // end of one-block wide economy section = three 0s
+                            rotation = new Vector3(0, 90, 0);
                             economyMesh = economyBridgeEndCap;
                             break;
-                        case 14 or 13 or 11 or 7: // end of economy section = one 0
-                            economyMesh = economyEndCap;
+                        case 1:
+                            rotation = new Vector3(0, 180, 0);
+                            economyMesh = economyBridgeEndCap;
                             break;
-                        case 3 or 6 or 9 or 12: // corner - two 0s in a row
+                        case 4:
+                            rotation = new Vector3(0, 0, 0);
+                            economyMesh = economyBridgeEndCap;
+                            break;
+                        case 8:
+                            rotation = new Vector3(0, 270, 0);
+                            economyMesh = economyBridgeEndCap;
+                            break;
+                        case 11: // end of economy section = one 0
+                            economyMesh = economyEndCap;
+                            rotation = new Vector3(0, 0, 0);
+                            break;
+                        case 14:
+                            economyMesh = economyEndCap;
+                            rotation = new Vector3(0, 180, 0);
+                            break;
+                        case 13:
+                            economyMesh = economyEndCap;
+                            rotation = new Vector3(0, 90, 0);
+                            break;
+                        case 7:
+                            economyMesh = economyEndCap;
+                            rotation = new Vector3(0, 270, 0);
+                            break;
+                        case 3: // corner - two 0s in a row
                             economyMesh = economyCorner;
+                            rotation = new Vector3(0, 270, 0);
+                            break;
+                        case 6: // corner - two 0s in a row
+                            economyMesh = economyCorner;
+                            rotation = new Vector3(0, 180, 0);
+                            break;
+                        case 12: // corner - two 0s in a row
+                            economyMesh = economyCorner;
+                            rotation = new Vector3(0, 90, 0);
+                            break;
+                        case 9: // corner - two 0s in a row
+                            economyMesh = economyCorner;
+                            rotation = new Vector3(0, 0, 0);
                             break;
                         default:
                             throw new System.Exception("the surrounding terrain value is illegal");
                     }
 
                     economyMesh.transform.position = new Vector3(curCell.worldPos.x, 0, curCell.worldPos.z);
+                    economyMesh.transform.rotation = Quaternion.Euler(rotation);
                     combine[i].mesh = economyMesh.sharedMesh;
                     combine[i].transform = economyMesh.transform.localToWorldMatrix;
+
                     break;
 
                 case TerrainLayers.start:
