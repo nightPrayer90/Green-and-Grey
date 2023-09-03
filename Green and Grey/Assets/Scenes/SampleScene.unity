@@ -859,12 +859,18 @@ MonoBehaviour:
   - {fileID: 4751790939742018182, guid: c65b983c4db24fc4b8e0bbf40c588c0e, type: 3}
   layer12mesh: {fileID: 6505987482285772954, guid: 2f88c8f06633bea47a591f0d0e18abad,
     type: 3}
-  economyMidBlock: {fileID: 0}
-  economySingleBlock: {fileID: 0}
-  economyBridge: {fileID: 0}
-  economyBridgeEndCap: {fileID: 0}
-  economyEndCap: {fileID: 0}
-  economyCorner: {fileID: 0}
+  economyMidBlock: {fileID: -5754084199372789682, guid: 5dbf2b0adbf5c5c479af09eebdd4e865,
+    type: 3}
+  economySingleBlock: {fileID: -5754084199372789682, guid: e4854f71165e64140a3321e8e506a6c7,
+    type: 3}
+  economyBridge: {fileID: -5754084199372789682, guid: 974d3e6e1d544bb458dfc8b59131d37e,
+    type: 3}
+  economyBridgeEndCap: {fileID: -5754084199372789682, guid: 5616b01260f3c6e478371cb894f8db02,
+    type: 3}
+  economyEndCap: {fileID: -5754084199372789682, guid: 6b46a9f8dff21494aa4c6e87ecd2b586,
+    type: 3}
+  economyCorner: {fileID: -5754084199372789682, guid: 8c820628354844b4582088d516432b6a,
+    type: 3}
 --- !u!4 &1264779315
 Transform:
   m_ObjectHideFlags: 0
