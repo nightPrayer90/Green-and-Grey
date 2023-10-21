@@ -12,6 +12,7 @@ public class GridController : MonoBehaviour
     public TerrainGrid curTerrainGrid;
     public GridDebug gridDebug;
     public GridObjectBuilder gridObjectBuilder;
+    public CameraController cameraController;
 
     private void Start()
     {
@@ -54,6 +55,8 @@ public class GridController : MonoBehaviour
         curFlowField.CreateIntegrationField(destinationCellpos, startPos);
         curFlowField.CreateFlowField();
         //gridDebug.DrawFlowField();
+
+        cameraController.InitCamController();
     }
 
     public void ReCalculateFlowField(GameObject placedTower, Vector2Int towerCellPos)
