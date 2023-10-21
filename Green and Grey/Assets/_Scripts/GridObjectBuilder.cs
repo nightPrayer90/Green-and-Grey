@@ -15,10 +15,10 @@ public class GridObjectBuilder : MonoBehaviour
 
     [Header("Grid Prefab meshes")]
     public MeshFilter[] layer0meshes;
-    public MeshFilter layer12mesh;
+    public MeshFilter[] layer12meshes;
 
     [Header("Economy Prefab meshes")]
-    public MeshFilter economyMidBlock; // surrounded by economy = 1111
+    public MeshFilter[] economyMidBlocks; // surrounded by economy = 1111
     public MeshFilter economySingleBlock; // surrounded by battlefield = 0000
     public MeshFilter economyBridge; // within one-block wide economy section = two 0s separated by 1s
     public MeshFilter economyBridgeEndCap; // end of one-block wide economy section = three 0s
@@ -64,7 +64,8 @@ public class GridObjectBuilder : MonoBehaviour
                     switch (curCell.surroundingTerrain)
                     {
                         case 15: // surrounded by economy = 1111
-                            economyMesh = economyMidBlock;
+                            int randomMB = Random.Range(0, economyMidBlocks.Length);
+                            economyMesh = economyMidBlocks[randomMB];
                             rotation = new Vector3(0, 90, 0);
                             break;
                         case 0: // surrounded by battlefield = 0000
@@ -168,9 +169,10 @@ public class GridObjectBuilder : MonoBehaviour
                     break;
 
                 case TerrainLayers.border:
-                    layer12mesh.transform.position = new Vector3(curCell.worldPos.x, .5f, curCell.worldPos.z);
-                    ci.mesh = layer12mesh.sharedMesh;
-                    ci.transform = layer12mesh.transform.localToWorldMatrix;
+                    int random12 = Random.Range(0, layer12meshes.Length);
+                    layer12meshes[random12].transform.position = new Vector3(curCell.worldPos.x, .5f, curCell.worldPos.z);
+                    ci.mesh = layer12meshes[random12].sharedMesh;
+                    ci.transform = layer12meshes[random12].transform.localToWorldMatrix;
                     break;
             }
 

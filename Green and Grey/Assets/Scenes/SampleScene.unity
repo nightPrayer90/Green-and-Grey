@@ -565,7 +565,7 @@ Camera:
   m_ShutterSpeed: 0.005
   m_Aperture: 16
   m_FocusDistance: 10
-  m_FocalLength: 137
+  m_FocalLength: 130
   m_BladeCount: 5
   m_Curvature: {x: 2, y: 11}
   m_BarrelClipping: 0.25
@@ -580,7 +580,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 200
-  field of view: 10.011665
+  field of view: 10.547792
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -593,9 +593,9 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
+  m_AllowDynamicResolution: 1
   m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
+  m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
 --- !u!4 &330585546
@@ -972,7 +972,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 561f68e2f2be73549a67130862392ca7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: {x: 60, y: 60}
+  gridSize: {x: 40, y: 40}
   destinationCellpos: {x: 0, y: 0}
   startPos: {x: 0, y: 0}
   cellRadius: 0.5
@@ -998,10 +998,12 @@ MonoBehaviour:
   layer0meshes:
   - {fileID: -5754084199372789682, guid: 0c768ab6d39517d4880f0467ee9c4655, type: 3}
   - {fileID: -5754084199372789682, guid: 1bd0545d944db8e48819d1f016510f48, type: 3}
-  layer12mesh: {fileID: 6505987482285772954, guid: 2f88c8f06633bea47a591f0d0e18abad,
-    type: 3}
-  economyMidBlock: {fileID: -5754084199372789682, guid: 5dbf2b0adbf5c5c479af09eebdd4e865,
-    type: 3}
+  - {fileID: -5754084199372789682, guid: a9a62e861517f1c40b301e6d97070f4a, type: 3}
+  layer12meshes:
+  - {fileID: -5754084199372789682, guid: 2d715bd66932b9345bbe33b944b2afa0, type: 3}
+  economyMidBlocks:
+  - {fileID: -5754084199372789682, guid: 5dbf2b0adbf5c5c479af09eebdd4e865, type: 3}
+  - {fileID: -5754084199372789682, guid: 36e50bd72384ef14a909e378603a67c1, type: 3}
   economySingleBlock: {fileID: -5754084199372789682, guid: e4854f71165e64140a3321e8e506a6c7,
     type: 3}
   economyBridge: {fileID: -5754084199372789682, guid: 974d3e6e1d544bb458dfc8b59131d37e,

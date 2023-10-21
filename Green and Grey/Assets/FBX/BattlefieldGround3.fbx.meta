@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b1ce17e2c5af92048a9e68a37b500c1b
+guid: a9a62e861517f1c40b301e6d97070f4a
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -46,7 +46,7 @@ ModelImporter:
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
     importPhysicalCameras: 1
-    importVisibility: 1
+    importVisibility: 0
     importBlendShapes: 0
     importCameras: 0
     importLights: 0
