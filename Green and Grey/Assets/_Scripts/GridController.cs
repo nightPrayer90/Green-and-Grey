@@ -40,8 +40,9 @@ public class GridController : MonoBehaviour
         Vector2Int gridSize_ = new Vector2Int(gridSize.x*2, gridSize.y*2);
 
         curFlowField = new FlowField(cellRadius/2, gridSize_);
-        curFlowField.CreateGrid();
         curFlowField.SetTerrainGrid(curTerrainGrid);
+        curFlowField.CreateGrid();
+       
 
         gridDebug.SetFlowField(curFlowField);
     }

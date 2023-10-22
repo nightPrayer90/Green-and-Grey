@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1560695383825499336}
   - component: {fileID: 5316683244332767675}
   - component: {fileID: 1724386242780961718}
-  - component: {fileID: 8034669234009889809}
+  - component: {fileID: -204709030878662699}
   m_Layer: 0
   m_Name: StopObject
   m_TagString: stop
@@ -84,8 +84,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &8034669234009889809
-SphereCollider:
+--- !u!65 &-204709030878662699
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -103,5 +103,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}

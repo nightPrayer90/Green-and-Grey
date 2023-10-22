@@ -27,6 +27,13 @@ public class FlowField
         gridSize = _gridSize;
     }
 
+    public void SetTerrainGrid(TerrainGrid newTerrainGrid)
+    {
+        curTerrainGrid = newTerrainGrid;
+        terrainCellRadius = newTerrainGrid.cellRadius;
+        gridSizeTerrain = newTerrainGrid.gridSize;
+    }
+
     // Initializes the grid 
     public void CreateGrid()
     {
@@ -37,16 +44,10 @@ public class FlowField
             for (int y = 0; y < gridSize.y; y++)
             {
                 Vector3 worldPos = new Vector3(cellDiameter * x + cellRadius, 0, cellDiameter * y + cellRadius);
-                grid[x, y] = new Cell(worldPos, new Vector2Int(x, y));
+                TerrainLayers tarrainLayer = curTerrainGrid.terrainGrid[x / 2, y / 2].terrainValue;
+                grid[x, y] = new Cell(worldPos, new Vector2Int(x, y), tarrainLayer);
             }
         }
-    }
-
-    public void SetTerrainGrid(TerrainGrid newTerrainGrid)
-    {
-        curTerrainGrid = newTerrainGrid;
-        terrainCellRadius = newTerrainGrid.cellRadius;
-        gridSizeTerrain = newTerrainGrid.gridSize;
     }
 
 

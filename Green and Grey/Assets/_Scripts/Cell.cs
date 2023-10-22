@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Cell
 {
-
     public Vector3 worldPos;
     public Vector2Int gridIndex;
 
@@ -12,10 +11,14 @@ public class Cell
     public ushort bestCost;
     public GridDirection bestDirection;
 
-    public Cell(Vector3 _worldPos, Vector2Int _gridIndex)
+    // Base grid
+    public TerrainLayers terrainValue;
+
+    public Cell(Vector3 _worldPos, Vector2Int _gridIndex, TerrainLayers _terrainValue)
     {
         worldPos = _worldPos;
         gridIndex = _gridIndex;
+        terrainValue = _terrainValue;
 
         // Flow fild
         cost = 1;

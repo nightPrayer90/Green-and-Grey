@@ -6,6 +6,7 @@ TagManager:
   tags:
   - start
   - stop
+  - Enemy
   layers:
   - Default
   - TransparentFX
