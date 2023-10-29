@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public enum TerrainLayers : int
+public enum TerrainLayers : ushort
 {
     battlefield = 0,
     economy = 1,
@@ -193,20 +193,20 @@ public class TerrainGrid
     public void CalculateCellSurroundings()
     {
         // TODO: border nutzen statt 1
-        for(int x = 1; x < gridSize.x - 1; x++)
+        for (int x = 2; x < gridSize.x - 2; x++)
         {
-            for(int y = 1; y < gridSize.y - 1; y++)
+            for (int y = 2; y < gridSize.y - 2; y++)
             {
-                if(terrainGrid[x,y].terrainValue == TerrainLayers.economy)
+                if (terrainGrid[x, y].terrainValue == TerrainLayers.economy)
                 {
                     // we only need the borders from economy to battlefield (or whatever) and not the other way round
                     // the multiplications are bit shifts
-                    // TODO: The Min is an ugly hack for the problem that we do not account for borders. It is the easiest way to say "if you are higher than 1, you are economy"
-                    terrainGrid[x, y].surroundingTerrain =
-                        Math.Min(1, (uint)terrainGrid[x, y - 1].terrainValue) + // top
-                        Math.Min(1, (uint)terrainGrid[x + 1, y].terrainValue) * 2 + // right
-                        Math.Min(1, (uint)terrainGrid[x, y + 1].terrainValue) * 4 + // bottom
-                        Math.Min(1, (uint)terrainGrid[x - 1, y].terrainValue) * 8; // left
+                    // TODO: if not economy, it is battlefield. does this make sense?
+                    terrainGrid[x, y].surroundingTerrain = (ushort)(
+                        ((ushort)terrainGrid[x, y - 1].terrainValue == 1 ? 1 : 0) + // top
+                        ((ushort)terrainGrid[x + 1, y].terrainValue == 1 ? 1 : 0) * 2 + // right
+                        ((ushort)terrainGrid[x, y + 1].terrainValue == 1 ? 1 : 0) * 4 + // bottom
+                        ((ushort)terrainGrid[x - 1, y].terrainValue == 1 ? 1 : 0) * 8); // left
                 }
             }
         }

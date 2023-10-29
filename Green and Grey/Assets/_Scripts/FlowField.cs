@@ -174,8 +174,22 @@ public class FlowField
             {
                 if (curNeighbor.bestCost < bestCost)
                 {
+
+                    Vector2Int neighborDirection = curNeighbor.gridIndex - curCell.gridIndex;
+                    // and check if we are allowed to go there: if it is a diagonal, the straight fields need to accessible, otherwise the diagonal will be blocked
+                    if (neighborDirection.x != 0 && neighborDirection.y != 0)
+                    {
+                        // the current neighbor is a diagonal
+                        if (grid[curCell.gridIndex.x, curCell.gridIndex.y + neighborDirection.y].cost == byte.MaxValue || grid[curCell.gridIndex.x + neighborDirection.x, curCell.gridIndex.y].cost == byte.MaxValue)
+                        {
+                            // one of the straight neighbors is not accessible, so the diagonal is illegal
+                            continue;
+                        }
+                    }
+
                     bestCost = curNeighbor.bestCost;
-                    curCell.bestDirection = GridDirection.GetDirectionFromV2I(curNeighbor.gridIndex - curCell.gridIndex);
+                    curCell.bestDirection = GridDirection.GetDirectionFromV2I(neighborDirection);
+
                 }
             }
         }

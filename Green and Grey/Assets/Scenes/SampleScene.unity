@@ -1325,14 +1325,23 @@ MonoBehaviour:
   start: {fileID: 8320418176936352385, guid: 72186b7838e23044d88ed70ca178372f, type: 3}
   stop: {fileID: 4236245012240115202, guid: bb15783ede7eab34eb47c978e9666781, type: 3}
   layer0meshes:
-  - {fileID: -5754084199372789682, guid: 0c768ab6d39517d4880f0467ee9c4655, type: 3}
-  - {fileID: -5754084199372789682, guid: 1bd0545d944db8e48819d1f016510f48, type: 3}
-  - {fileID: -5754084199372789682, guid: a9a62e861517f1c40b301e6d97070f4a, type: 3}
+  - mesh: {fileID: -5754084199372789682, guid: a9a62e861517f1c40b301e6d97070f4a, type: 3}
+    weight: 0.2
+  - mesh: {fileID: -5754084199372789682, guid: 1bd0545d944db8e48819d1f016510f48, type: 3}
+    weight: 0.4
+  - mesh: {fileID: -5754084199372789682, guid: 0c768ab6d39517d4880f0467ee9c4655, type: 3}
+    weight: 0
   layer12meshes:
-  - {fileID: -5754084199372789682, guid: 2d715bd66932b9345bbe33b944b2afa0, type: 3}
+  - {fileID: -5754084199372789682, guid: 34b3934024fcdcb4da8ccbaa1314157b, type: 3}
+  - {fileID: -5754084199372789682, guid: 62742e03dc1526e4694d504eb98e62af, type: 3}
+  - {fileID: -5754084199372789682, guid: b911d58c3b4cc6140a80a2130a2ea55e, type: 3}
   economyMidBlocks:
-  - {fileID: -5754084199372789682, guid: 5dbf2b0adbf5c5c479af09eebdd4e865, type: 3}
-  - {fileID: -5754084199372789682, guid: 36e50bd72384ef14a909e378603a67c1, type: 3}
+  - mesh: {fileID: -5754084199372789682, guid: 5bc7ea8baad21024c86dd2e359ae7aa6, type: 3}
+    weight: 0.1
+  - mesh: {fileID: -5754084199372789682, guid: 36e50bd72384ef14a909e378603a67c1, type: 3}
+    weight: 0.25
+  - mesh: {fileID: -5754084199372789682, guid: 5dbf2b0adbf5c5c479af09eebdd4e865, type: 3}
+    weight: 0.65
   economySingleBlock: {fileID: -5754084199372789682, guid: e4854f71165e64140a3321e8e506a6c7,
     type: 3}
   economyBridge: {fileID: -5754084199372789682, guid: 974d3e6e1d544bb458dfc8b59131d37e,
@@ -1602,7 +1611,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridController: {fileID: 1264779313}
   displayGrid: 1
-  curDisplayType: 4
+  curDisplayType: 5
 --- !u!4 &1977803240
 Transform:
   m_ObjectHideFlags: 0

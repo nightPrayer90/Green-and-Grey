@@ -18,6 +18,7 @@ public class GridDirection
 
     public static GridDirection GetDirectionFromV2I(Vector2Int vector)
     {
+        // TODO: figure out why this function chain is necessary. When does it return None? What does it default to?
         return CardinalAndIntercardinalDirections.DefaultIfEmpty(None).FirstOrDefault(direction => direction == vector);
     }
 
@@ -63,4 +64,9 @@ public class GridDirection
         West,
         NorthWest
     };
+
+    public override string ToString()
+    {
+        return Vector.x.ToString() + " " + Vector.y.ToString();
+    }
 }

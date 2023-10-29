@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-public enum FlowFieldDisplayType { None, CostField, IntegrationField , terrainGrid, surroundingValueGrid };
+public enum FlowFieldDisplayType { None, CostField, IntegrationField , terrainGrid, surroundingValueGrid, vectorField };
 
 public class GridDebug : MonoBehaviour
 {
@@ -214,6 +214,13 @@ public class GridDebug : MonoBehaviour
                 foreach (TerrainCell curCell in curTerrainGrid.terrainGrid)
                 {
                     Handles.Label(curCell.worldPos, curCell.surroundingTerrain.ToString(), style);
+                }
+                break;
+            case FlowFieldDisplayType.vectorField:
+
+                foreach (Cell curCell in curFlowField.grid)
+                {
+                    Handles.Label(curCell.worldPos, curCell.bestDirection.ToString(), style);
                 }
                 break;
 

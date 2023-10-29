@@ -8,7 +8,7 @@ public class TerrainCell
 
     // Base Grid
     public TerrainLayers terrainValue;
-    public uint surroundingTerrain; // we will only use 4 of the 32 bit - for now...
+    public ushort surroundingTerrain; // we will only use 4 of the 16 bit - for now...5
     public int tileSetValue;
 
     public TerrainCell(Vector3 _worldPos, Vector2Int _gridIndex, TerrainLayers _baseValue = TerrainLayers.border, int _tileSetValue = 0)
